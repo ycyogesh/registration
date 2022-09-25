@@ -6,12 +6,18 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LeftsideComponent } from './leftside/leftside.component';
 import { RightsideComponent } from './rightside/rightside.component';
+import { SignupComponent } from './signup/signup.component';
+import { LogoComponent } from './logo/logo.component';
+import { MailsentComponent } from './mailsent/mailsent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LeftsideComponent,
-    RightsideComponent
+    RightsideComponent,
+    SignupComponent,
+    LogoComponent,
+    MailsentComponent
   ],
   imports: [
     BrowserModule,
