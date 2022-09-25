@@ -1,0 +1,33 @@
+.mainarea{
+    .row{
+    --bs-gutter-x: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        .left{
+            height: 100vh;
+            background-color: #EB5757;
+        }
+        .message{
+            height: 100vh;
+            h3 {
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: 600;
+                margin-top: 226px;
+                margin-left: 92px;
+                color: #000000;
+            }
+            p {
+                font-size: 18px;
+                line-height: 22px;
+                color: #000000;
+                // margin-top: 112px;
+                margin-left: 92px;
+                width: 411px;
+            }
+
+    
+        }
+    }
+}

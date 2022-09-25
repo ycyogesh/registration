@@ -14,6 +14,6 @@ export class SignupComponent implements OnInit {
   }
 
   createAccount(){
-    this.router.navigate(['activate'],{relativeTo : this.route})
+    this.router.navigate(['activate'])
   }
 }
