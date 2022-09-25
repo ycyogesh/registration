@@ -1,14 +1,18 @@
 .mainarea {
     --bs-gutter-x: 0;
+    display: flex;
+    font-family: 'Montserrat', 'sans-serif';
+
     .logo {
         height: 100vh;
-        background-color: #EB5757;;
+        background-color: #EB5757;
+        ;
 
         img {
             // background: url("../../assets/Screenshot\ 2022-09-24\ at\ 4.24\ 1.svg");
             position: absolute;
             width: 513px;
-            height: 518px;
+            height: 638px;
             margin-top: 122px;
             margin-left: 82px;
         }
