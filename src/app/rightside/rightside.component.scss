@@ -1,0 +1,41 @@
+.main {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    // margin: 102px 142px 131px 142px;
+    height: 100vh;
+    .header {
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+            color: #021F55;
+        }
+        p {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 15px;
+            color: #1B2228;
+        }
+    }
+    .detailsForm {
+        label{
+            font-size: 12px;
+            line-height: 15px;
+            color: #1B2228;
+        }
+        input{
+            display: flex;
+            justify-content: center;
+            width: 320px;
+            height: 38px;
+            border: 1px solid #E1E7EA;
+            border-radius: 3px;
+            padding: 9px 12px;
+            align-items: center;
+            gap: 10px;
+        }
+
+    }
+}

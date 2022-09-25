@@ -11,5 +11,8 @@ export class RightsideComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  createAccount(){
+
+  }
 
 }

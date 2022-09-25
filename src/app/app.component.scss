@@ -1,0 +1,14 @@
+.main{
+    display: flex;
+    font-family: 'Montserrat','sans-serif';
+    .left{
+        width: 50%;
+        background-color: #EB5757;
+        height: 100vh;
+
+    }
+    .right{
+        width: 50%;
+        height: 100vh;
+    }
+}
