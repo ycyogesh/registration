@@ -1,0 +1,54 @@
+.mainarea{
+    .row{
+    --bs-gutter-x: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat','sans-serif';
+
+        .left{
+            height: 100vh;
+            background-color: #EB5757;
+        }
+        .message{
+            height: 100vh;
+            display: flex;
+            flex-flow: column;
+            h3 {
+                font-size: 24px;
+                line-height: 29px;
+                font-weight: 600;
+                margin-top: 230px;
+                margin-left: 97px;
+                color: #219653;
+            }
+            p {
+                font-size: 14px;
+                line-height: 17px;
+                color: #000000;
+                margin-left: 97px;
+                width: 411px;
+            }
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // padding: 0px 140px;
+                width: 320px;
+                height: 32px;
+                margin-top: 31px;
+                background-color: #2D81F7;
+                box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+                border-radius: 4px;
+                font-size: 13px;
+                line-height: 24px;
+                text-align: center;
+                color: #FFFFFF;
+                margin-left: 97px;
+
+            }
+
+    
+        }
+    }
+}
