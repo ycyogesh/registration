@@ -1,0 +1,18 @@
+.mainarea{
+    .row{
+    --bs-gutter-x: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat','sans-serif';
+
+        .left{
+            height: 100vh;
+            background-color: #EB5757;
+        }
+        .message{
+            height: 100vh;
+            
+        }
+    }
+}

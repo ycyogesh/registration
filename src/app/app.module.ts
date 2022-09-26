@@ -7,13 +7,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignupComponent } from './signup/signup.component';
 import { MailsentComponent } from './mailsent/mailsent.component';
 import { VerifedComponent } from './verifed/verifed.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     MailsentComponent,
-    VerifedComponent
+    VerifedComponent,
+    PagenotfoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
