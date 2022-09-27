@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginComponent } from './login/login.component';
 import { MailsentComponent } from './mailsent/mailsent.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path : "login",
     component : LoginComponent
+  },
+  {
+    path : "forgot-password",
+    component : ForgotpasswordComponent
   },
   {
     path : "**",

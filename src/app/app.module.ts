@@ -9,6 +9,7 @@ import { MailsentComponent } from './mailsent/mailsent.component';
 import { VerifedComponent } from './verifed/verifed.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoginComponent } from './login/login.component';
     MailsentComponent,
     VerifedComponent,
     PagenotfoundComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
