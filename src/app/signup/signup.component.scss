@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 .mainarea {
     --bs-gutter-x: 0;
     display: flex;
@@ -38,6 +40,8 @@
                 font-weight: 600;
                 line-height: 29px;
                 color: #021F55;
+                font-family: 'Montserrat', 'sans-serif';
+
             }
 
             p {
