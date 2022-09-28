@@ -11,6 +11,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ForgotmailComponent } from './forgotmail/forgotmail.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ForgotmailComponent } from './forgotmail/forgotmail.component';
     PagenotfoundComponent,
     LoginComponent,
     ForgotpasswordComponent,
-    ForgotmailComponent
+    ForgotmailComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,
