@@ -10,6 +10,7 @@ import { VerifedComponent } from './verifed/verifed.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     VerifedComponent,
     PagenotfoundComponent,
     LoginComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    ForgotmailComponent
   ],
   imports: [
     BrowserModule,
