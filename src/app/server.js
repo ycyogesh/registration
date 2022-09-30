@@ -18,6 +18,9 @@ app = express();
 app.use(cors());
 app.use(express.json());
 
+var trueResult = {status : true}
+var falseResult = {status : false}
+
 
 // MYSQL CONNECTION
 
@@ -37,24 +40,54 @@ connection.connect(function (err) {
 });
 
 
-app.post("/signUp",(req, res)=>{
+app.post("/signUp", (req, res) => {
     console.log("Entered Backend");
     console.log(req.body);
+    let { orgName, email, password, mobileNo } = req.body
 
     let sql = "select id,email,isVerified from signupUsers where email=?"
-    connection.query(sql, [req.body.email],(err, selectResult)=>{
-        if(err){
+    connection.query(sql, [req.body.email], (err, selectResult) => {
+        if (err) {
             console.error(err.stack);
-            res.send("Error");
+            res.send(falseResult)
             return;
         }
         // console.log("selectResult",selectResult);
-        else if(selectResult.length > 0){
-            if(selectResult.isVerified==0){
+        else if (selectResult.length > 0) {
+            if (selectResult.isVerified == 0) {
                 console.log("Please Verify Mail");
-                res.send("")
+                res.send(falseResult);
+                return;
             }
+            console.log("Something went wrong!");   // Redirect to Login
+            res.send(falseResult)
+            return;
         }
+        else {
+            let token = jwt.sign({
+                email: email + parseInt(Math.random() * 10)
+            }, "yc@3"
+            );
+            bcrypt.hash(password, 10, function (err, hash) {
+                // console.log("Hashed", hash);
+                if(err){
+                    console.error(err.stack);
+                    res.send(falseResult)
+                    return;
+                }
+                let sql = "insert into signupUsers(orgName,email,password,mobileNo, token) values(?,?,?,?,?)";
+                connection.query(sql, [orgName, email, hash, mobileNo, token], (err, insertResult) => {
+                    if (err) {
+                        console.error(err.stack);
+                        res.send(falseResult)
+                        return;
+                    }
+                    console.log("insertResult",insertResult);
+                    res.send(trueResult);
+                })
+            })
+        }
+
         // res.send("Select Success")
     })
 })

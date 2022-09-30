@@ -20,7 +20,7 @@ const routes: Routes = [
     component : SignupComponent
   },
   {
-    path: "activate",
+    path: "activate/:email",
     component: MailsentComponent
   },
   {

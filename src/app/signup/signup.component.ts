@@ -11,6 +11,7 @@ import { AppService } from '../app.service';
 export class SignupComponent implements OnInit {
 
   userSignup: any;
+  result: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private appService: AppService) { }
 
@@ -33,12 +34,18 @@ export class SignupComponent implements OnInit {
 
   createAccount() {
     this.appService.createAccount({ orgName: this.forms['orgName'].value, email: this.forms['email'].value, password: this.forms['password'].value, mobileNo: this.forms['mobileNo'].value }).subscribe((result) => {
-      if (result) {
-        console.log("Result Controller",result);
-        this.router.navigate(['activate'])
+      console.log("------>", result);
+      this.result = result
+
+      if (this.result['status']) {
+        console.log("Result Controller", result);
+        alert("Check your Mail");
+        this.router.navigate(['activate', this.forms['email'].value])
         return;
       }
-      return result
+      this.userSignup.reset();
+      alert("Something went wrong!");
+      return
     })
 
   }
