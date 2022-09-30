@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,7 @@ export class SignupComponent implements OnInit {
 
   userSignup : any;
 
-  constructor(private route : ActivatedRoute, private router : Router, private fb : FormBuilder) { }
+  constructor(private route : ActivatedRoute, private router : Router, private fb : FormBuilder, private appService : AppService) { }
 
   ngOnInit(): void {
 
@@ -22,14 +23,17 @@ export class SignupComponent implements OnInit {
       mobileNo : [null,[Validators.required, Validators.maxLength(10), Validators.minLength(10)]]
     })
 
+    console.log(this.userSignup);
   }
-
+  
 
   get forms(){
     return this.userSignup.controls;
   }
 
   createAccount(){
+    this.appService.createAccount({})
+
     this.router.navigate(['activate'])
   }
 }

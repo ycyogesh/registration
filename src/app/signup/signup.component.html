@@ -24,6 +24,7 @@
             <input type="password" placeholder="Password" formControlName="password" name="password" id=""><br>
             <ng-container *ngIf="forms['password'].invalid && ( forms['password'].dirty || forms['password'].touched )">
                 <div style="color: red;font-size : 12px" *ngIf="forms['password'].errors?.required">Required</div>
+                <div style="color: red;font-size : 12px" *ngIf="forms['password'].errors?.minlength">Length should be 8 above</div>
             </ng-container>
 
             <label for="mobilenumber">Mobile Number</label><br>
@@ -34,7 +35,7 @@
                 <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.maxlength">Length should be 10</div>
             </ng-container>
 
-            <button type="button" (click)="createAccount()">CREATE ACCOUNT</button><br>
+            <button type="button" [disabled]="userSignup.invalid" (click)="createAccount()">CREATE ACCOUNT</button><br>
 
 
             <p>Already Have an Account? &nbsp;<a href="http://localhost:4200/login">Login</a></p>
