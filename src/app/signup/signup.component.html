@@ -27,7 +27,7 @@
             </ng-container>
 
             <label for="mobilenumber">Mobile Number</label><br>
-            <input type="text" placeholder="Mobile Number" formControlName="mobileNo" name="mobileNo" id=""><br>
+            <input type="text" placeholder="Mobile Number" formControlName="mobileNo" name="mobilenumber" id=""><br>
             <ng-container *ngIf="forms['mobileNo'].invalid && ( forms['mobileNo'].dirty || forms['mobileNo'].touched )">
                 <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.required">Required</div>
                 <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.minlength">Length should be 10</div>
