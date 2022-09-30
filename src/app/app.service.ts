@@ -11,8 +11,7 @@ export class AppService {
   constructor(private httpClient : HttpClient) { }
 
   createAccount(details:{}){
-    console.log("Controller",details);
-    
+    console.log("Controller",details);    
     return this.httpClient.post(environment.appUrl+"signUp",details)
   }
 
