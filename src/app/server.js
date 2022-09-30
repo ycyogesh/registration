@@ -39,6 +39,7 @@ connection.connect(function (err) {
 
 app.post("/signUp",(req, res)=>{
     console.log("Entered Backend");
+    console.log(req.body);
     res.send({result : "success"})
 })
 
