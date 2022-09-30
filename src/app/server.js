@@ -40,7 +40,23 @@ connection.connect(function (err) {
 app.post("/signUp",(req, res)=>{
     console.log("Entered Backend");
     console.log(req.body);
-    res.send({result : "success"})
+
+    let sql = "select id,email,isVerified from signupUsers where email=?"
+    connection.query(sql, [req.body.email],(err, selectResult)=>{
+        if(err){
+            console.error(err.stack);
+            res.send("Error");
+            return;
+        }
+        // console.log("selectResult",selectResult);
+        else if(selectResult.length > 0){
+            if(selectResult.isVerified==0){
+                console.log("Please Verify Mail");
+                res.send("")
+            }
+        }
+        // res.send("Select Success")
+    })
 })
 
 

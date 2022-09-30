@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit {
   createAccount() {
     this.appService.createAccount({ orgName: this.forms['orgName'].value, email: this.forms['email'].value, password: this.forms['password'].value, mobileNo: this.forms['mobileNo'].value }).subscribe((result) => {
       if (result) {
+        console.log("Result Controller",result);
         this.router.navigate(['activate'])
         return;
       }
