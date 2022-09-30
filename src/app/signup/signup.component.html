@@ -9,19 +9,30 @@
         </div>
         <div class="detailsForm" [formGroup]="userSignup">
             <label for="orgname">Org name</label><br>
-            <input type="text" placeholder="name" name="orgname" id=""><br>
-            <ng-container>
-                
+            <input type="text" placeholder="name" formControlName="orgName" name="orgname" id=""><br>
+            <ng-container *ngIf="forms['orgName'].invalid && ( forms['orgName'].dirty || forms['orgName'].touched )">
+                <div style="color: red;font-size : 12px" *ngIf="forms['orgName'].errors?.required">Required</div>
             </ng-container>
 
             <label for="email">Email</label><br>
-            <input type="email" placeholder="Email" name="email" id=""><br>
+            <input type="email" placeholder="Email" formControlName="email" name="email" id=""><br>
+            <ng-container *ngIf="forms['email'].invalid && ( forms['email'].dirty || forms['email'].touched )">
+                <div style="color: red;font-size : 12px" *ngIf="forms['email'].errors?.required">Required</div>
+            </ng-container>
 
             <label for="password">Password</label><br>
-            <input type="password" placeholder="Password" name="password" id=""><br>
+            <input type="password" placeholder="Password" formControlName="password" name="password" id=""><br>
+            <ng-container *ngIf="forms['password'].invalid && ( forms['password'].dirty || forms['password'].touched )">
+                <div style="color: red;font-size : 12px" *ngIf="forms['password'].errors?.required">Required</div>
+            </ng-container>
 
             <label for="mobilenumber">Mobile Number</label><br>
-            <input type="text" placeholder="Mobile Number" name="mobilenumber" id=""><br>
+            <input type="text" placeholder="Mobile Number" formControlName="mobileNo" name="mobileNo" id=""><br>
+            <ng-container *ngIf="forms['mobileNo'].invalid && ( forms['mobileNo'].dirty || forms['mobileNo'].touched )">
+                <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.required">Required</div>
+                <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.minlength">Length should be 10</div>
+                <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.maxlength">Length should be 10</div>
+            </ng-container>
 
             <button type="button" (click)="createAccount()">CREATE ACCOUNT</button><br>
 

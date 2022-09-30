@@ -19,9 +19,14 @@ export class SignupComponent implements OnInit {
       orgName : [null,[Validators.required]],
       email : [null,[Validators.required]],
       password : [null,[Validators.required, Validators.minLength(8)]],
-      mobileNo : [null,[Validators.required, Validators.maxLength(10)]]
+      mobileNo : [null,[Validators.required, Validators.maxLength(10), Validators.minLength(10)]]
     })
 
+  }
+
+
+  get forms(){
+    return this.userSignup.controls;
   }
 
   createAccount(){
