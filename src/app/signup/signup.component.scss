@@ -8,15 +8,13 @@
     .logo {
         height: 100vh;
         background-color: #EB5757;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
         ;
 
         img {
-            // background: url("../../assets/Screenshot\ 2022-09-24\ at\ 4.24\ 1.svg");
-            position: absolute;
-            width: 513px;
-            height: 638px;
-            margin-top: 122px;
-            margin-left: 82px;
+
         }
 
     }
@@ -58,6 +56,7 @@
                 font-weight: 500;
                 line-height: 15px;
                 color: #1B2228;
+                
             }
 
             input {

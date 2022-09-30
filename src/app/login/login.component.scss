@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat-Regular.ttf');
+}
+
 
 .mainarea {
     .row {
@@ -7,7 +12,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: 'Montserrat', 'sans-serif';
+        font-family: 'Montserrat';
 
         .left {
             height: 100vh;
@@ -55,12 +60,13 @@
                     padding: 9px 12px;
                     align-items: center;
                     font-size: 13px;
-                    // line-height: 20px;
+                    line-height: 20px;
                     margin-bottom: 16px;
                 }
 
                 h5 {
                     margin-top: 12px;
+
                     a {
                         text-decoration: none;
                         font-size: 12px;
@@ -90,7 +96,7 @@
                     margin-top: 24px;
 
                     a {
-                    margin-left: 138px;
+                        margin-left: 138px;
                         text-decoration: none;
                         font-size: 12px;
                         color: #2D81F7;
