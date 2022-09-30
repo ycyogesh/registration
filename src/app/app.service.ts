@@ -15,4 +15,8 @@ export class AppService {
     return this.httpClient.post(environment.appUrl+"signUp",details)
   }
 
+  getUserDetails(email : string){
+    return this.httpClient.get(environment.appUrl+"getUserDetails?email="+email)
+  }
+
 }

@@ -18,8 +18,8 @@ app = express();
 app.use(cors());
 app.use(express.json());
 
-var trueResult = {status : true}
-var falseResult = {status : false}
+var trueResult = { status: true }
+var falseResult = { status: false }
 
 
 // MYSQL CONNECTION
@@ -39,6 +39,9 @@ connection.connect(function (err) {
     console.log("connected as id :", +connection.threadId);
 });
 
+
+
+// SignUp User
 
 app.post("/signUp", (req, res) => {
     console.log("Entered Backend");
@@ -70,7 +73,7 @@ app.post("/signUp", (req, res) => {
             );
             bcrypt.hash(password, 10, function (err, hash) {
                 // console.log("Hashed", hash);
-                if(err){
+                if (err) {
                     console.error(err.stack);
                     res.send(falseResult)
                     return;
@@ -82,13 +85,31 @@ app.post("/signUp", (req, res) => {
                         res.send(falseResult)
                         return;
                     }
-                    console.log("insertResult",insertResult);
+                    console.log("insertResult", insertResult);
                     res.send(trueResult);
                 })
             })
         }
 
         // res.send("Select Success")
+    })
+})
+
+
+
+// Get User
+
+
+app.get("/getUserDetails", (req, res) => {
+    let sql = "select orgName from signupUsers where email=?";
+    connection.query(sql, [req.query.token], (err, getResult) => {
+        if (err) {
+            console.error(err.stack);
+            res.send(falseResult)
+            return;
+        }
+        res.send(getResult);
+        return;
     })
 })
 
