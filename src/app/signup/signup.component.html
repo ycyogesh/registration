@@ -7,9 +7,12 @@
             <h3>Hello, Welcome</h3>
             <p>Enter to digital learning</p>
         </div>
-        <div class="detailsForm">
+        <div class="detailsForm" [formGroup]="userSignup">
             <label for="orgname">Org name</label><br>
             <input type="text" placeholder="name" name="orgname" id=""><br>
+            <ng-container>
+                
+            </ng-container>
 
             <label for="email">Email</label><br>
             <input type="email" placeholder="Email" name="email" id=""><br>

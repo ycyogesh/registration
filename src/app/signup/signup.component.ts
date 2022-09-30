@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,9 +9,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, private router : Router) { }
+  userSignup : any;
+
+  constructor(private route : ActivatedRoute, private router : Router, private fb : FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.userSignup = this.fb.group({
+      orgName : [null,[Validators.required]],
+      email : [null,[Validators.required]],
+      password : [null,[Validators.required, Validators.minLength(8)]],
+      mobileNo : [null,[Validators.required, Validators.maxLength(10)]]
+    })
+
   }
 
   createAccount(){
