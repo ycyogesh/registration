@@ -10,30 +10,35 @@ import { AppService } from '../app.service';
 })
 export class SignupComponent implements OnInit {
 
-  userSignup : any;
+  userSignup: any;
 
-  constructor(private route : ActivatedRoute, private router : Router, private fb : FormBuilder, private appService : AppService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder, private appService: AppService) { }
 
   ngOnInit(): void {
 
     this.userSignup = this.fb.group({
-      orgName : [null,[Validators.required]],
-      email : [null,[Validators.required]],
-      password : [null,[Validators.required, Validators.minLength(8)]],
-      mobileNo : [null,[Validators.required, Validators.maxLength(10), Validators.minLength(10)]]
+      orgName: [null, [Validators.required]],
+      email: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      mobileNo: [null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]]
     })
 
     console.log(this.userSignup);
   }
-  
 
-  get forms(){
+
+  get forms() {
     return this.userSignup.controls;
   }
 
-  createAccount(){
-    this.appService.createAccount({})
+  createAccount() {
+    this.appService.createAccount({ orgName: this.forms['orgName'].value, email: this.forms['email'].value, password: this.forms['password'].value, mobileNo: this.forms['mobileNo'].value }).subscribe((result) => {
+      if (result) {
+        this.router.navigate(['activate'])
+        return;
+      }
+      return result
+    })
 
-    this.router.navigate(['activate'])
   }
 }
