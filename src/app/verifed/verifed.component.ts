@@ -11,7 +11,9 @@ export class VerifedComponent implements OnInit {
 
   result: any
   tokenResult: any
+  tokenResult1 : any
   isVerified : boolean = false
+  email : any
   constructor(private route: ActivatedRoute, private router: Router, private appServeice: AppService) { }
 
   ngOnInit(): void {
@@ -25,10 +27,11 @@ export class VerifedComponent implements OnInit {
   getUserDetails(token: string) {
     this.appServeice.verfiyUser(token).subscribe((tokenResult) => {
       this.tokenResult = tokenResult
-      this.tokenResult = this.tokenResult.changedRows
       console.log("tokenResult", this.tokenResult);
-
-      if (this.tokenResult == 1) {
+      this.tokenResult1 = this.tokenResult.verifiedResult.changedRows
+      this.email = this.tokenResult.verifyResult['0'].email
+      console.log("email1",this.email);
+      if (this.tokenResult1 == 1) {
         this.isVerified = true;
         alert("Verified Successfully")
         return;
