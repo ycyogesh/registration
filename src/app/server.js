@@ -101,7 +101,7 @@ app.post("/signUp", (req, res) => {
     connection.query(sql, [req.body.email], (err, selectResult) => {
         if (err) {
             console.error(err.stack);
-            res.send(falseResult)
+            res.send(falseResult);
             return;
         }
         // console.log("selectResult",selectResult);
@@ -124,7 +124,7 @@ app.post("/signUp", (req, res) => {
                 // console.log("Hashed", hash);
                 if (err) {
                     console.error(err.stack);
-                    res.send(falseResult)
+                    res.send(falseResult);
                     return;
                 }
                 let sql = "insert into signupUsers(orgName,email,password,mobileNo, token) values(?,?,?,?,?)";
@@ -159,7 +159,7 @@ app.get("/getUserDetails", (req, res) => {
     connection.query(sql, [req.query.email], (err, getResult) => {
         if (err) {
             console.error(err.stack);
-            res.send(falseResult)
+            res.send(falseResult);
             return;
         }
         res.send(getResult);
@@ -175,15 +175,25 @@ app.get("/verifyUser", (req, res) => {
     connection.query(sql, [req.query.token], (err, verifyResult) => {
         if (err) {
             console.error(err.stack);
-            res.send(falseResult)
+            res.send(falseResult);
             return;
         }
-        else if(verifyResult.length == 1){
+        else if (verifyResult.length == 1) {
             let sql = "update signupUsers set token=null, isVerified=? where token=?";
-            
+            connection.query(sql, [1, req.query.token], (err, verifiedResult) => {
+                if (err) {
+                    console.error(err.stack);
+                    res.send(falseResult);
+                    return;
+                }
+                res.send(verifiedResult);
+                return;
+            })
         }
-        res.send(verifyResult);
-        return;
+        else{
+            res.send(falseResult);
+            return;
+        }
     })
 })
 
