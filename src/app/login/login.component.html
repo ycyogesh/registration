@@ -6,16 +6,23 @@
                 <h3>Sign in</h3>
                 <p>to access Finex account</p>
             </div>
-            <div class="forms">
+            <div class="forms" [formGroup]="userSignup">
                 <label for="email">Email</label>
-                <input type="email" placeholder="Email" name="email" id="">
+                <input type="email" placeholder="Email" formControlName="email" name="email" id="">
+                <ng-container *ngIf="forms['email'].invalid && ( forms['email'].dirty || forms['email'].touched )">
+                    <div style="color: red;font-size : 12px" *ngIf="forms['email'].errors?.required">Required</div>
+                </ng-container>
 
                 <label for="password">Password</label>
-                <input type="password" placeholder="Password" name="password" id="">
+                <input type="password" placeholder="Password" formControlName="password" name="password" id="">
+                <ng-container *ngIf="forms['password'].invalid && ( forms['password'].dirty || forms['password'].touched )">
+                    <div style="color: red;font-size : 12px" *ngIf="forms['password'].errors?.required">Required</div>
+                    <div style="color: red;font-size : 12px" *ngIf="forms['password'].errors?.minlength">Length should be 8 above</div>
+                </ng-container>
 
                 <h5><a  (click)="forgotPassword()">Forgot Password?</a></h5>
 
-                <button type="button">SIGN IN</button>
+                <button type="button" [disabled]="userSignup.invalid" (click)="login()">SIGN IN</button>
                 <h6><a href="">Sign Up</a></h6>
             </div>
         </div>

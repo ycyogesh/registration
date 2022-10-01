@@ -21,5 +21,8 @@ export class AppService {
   verfiyUser(token : string){
     return this.httpClient.get(environment.appUrl+"verifyUser?token="+token)
   }
+  login(login : any){
+    return this.httpClient.post(environment.appUrl+"login",login)
+  }
 
 }
