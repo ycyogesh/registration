@@ -10,6 +10,7 @@ import { AppService } from '../app.service';
 export class VerifedComponent implements OnInit {
 
   result : any
+  tokenResult : any
   constructor(private route : ActivatedRoute, private router : Router, private appServeice : AppService) { }
 
   ngOnInit(): void {
@@ -21,7 +22,12 @@ export class VerifedComponent implements OnInit {
   }
 
   getUserDetails(token : string){
-    this.appServeice.verfiyUser(token)
+    this.appServeice.verfiyUser(token).subscribe((tokenResult)=>{
+      this.tokenResult = tokenResult
+      console.log("tokenResult",this.tokenResult);
+      
+      // if(tokenResult){}
+    })
   }
 
   login(){

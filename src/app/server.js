@@ -45,47 +45,47 @@ connection.connect(function (err) {
 
 function activationMail(email, token) {
     return new Promise((resolve, reject) => {
-      console.log("Activation Processing", token);
-      var transporter = nodemailer.createTransport({
-        host: process.env.HOST_EMAIL,
-        port: 2525,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
-        },
-      });
-  
-      var mailOptions = {
-        from: "yc@yc.com",
-        to: email,
-        subject: "Verify Your Account",
-        text: "To verify your account",
-        html:
-          '<html><body><p>To verify your account</p><a href="http://localhost:4200/activation/' +
-          token +
-          '">Click Here</a></body></html>',
-        dsn: {
-          id: "ID",
-          return: "headers",
-          notify: "success",
-          notify: ["failure", "delay"],
-          recipient: "yc@yc.com",
-        },
-      };
-  
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.error(error.stack);
-          console.log(error);
-          reject(false);
-        } else {
-          console.log("Email sent: " + info.response);
-          resolve(true);
-        }
-      });
+        console.log("Activation Processing", token);
+        var transporter = nodemailer.createTransport({
+            host: process.env.HOST_EMAIL,
+            port: 2525,
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+            },
+        });
+
+        var mailOptions = {
+            from: "yc@yc.com",
+            to: email,
+            subject: "Verify Your Account",
+            text: "To verify your account",
+            html:
+                '<html><body><p>To verify your account</p><a href="http://localhost:4200/activation/' +
+                token +
+                '">Click Here</a></body></html>',
+            dsn: {
+                id: "ID",
+                return: "headers",
+                notify: "success",
+                notify: ["failure", "delay"],
+                recipient: "yc@yc.com",
+            },
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.error(error.stack);
+                console.log(error);
+                reject(false);
+            } else {
+                console.log("Email sent: " + info.response);
+                resolve(true);
+            }
+        });
     });
-  }
-  
+}
+
 
 
 
@@ -128,7 +128,7 @@ app.post("/signUp", (req, res) => {
                     return;
                 }
                 let sql = "insert into signupUsers(orgName,email,password,mobileNo, token) values(?,?,?,?,?)";
-                connection.query(sql, [orgName, email, hash, mobileNo, token], async(err, insertResult) => {
+                connection.query(sql, [orgName, email, hash, mobileNo, token], async (err, insertResult) => {
                     if (err) {
                         console.error(err.stack);
                         res.send(falseResult)
@@ -136,7 +136,7 @@ app.post("/signUp", (req, res) => {
                     }
                     console.log("insertResult", insertResult);
                     let resp = await activationMail(email, token);
-                    if(resp){
+                    if (resp) {
                         res.send(trueResult);
                         return;
                     }
@@ -166,6 +166,27 @@ app.get("/getUserDetails", (req, res) => {
         return;
     })
 })
+
+
+// Verify Token
+
+app.get("/verifyUser", (req, res) => {
+    let sql = "select id,email,orgName,token from signupUsers where token=?";
+    connection.query(sql, [req.query.token], (err, verifyResult) => {
+        if (err) {
+            console.error(err.stack);
+            res.send(falseResult)
+            return;
+        }
+        else if(verifyResult.length == 1){
+            let sql = "update signupUsers set token=null, isVerified=? where token=?";
+            
+        }
+        res.send(verifyResult);
+        return;
+    })
+})
+
 
 
 app.listen(3000, () => {
