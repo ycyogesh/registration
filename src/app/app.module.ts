@@ -14,6 +14,41 @@ import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig} from 'ngx-ui-loader';
+
+
+const ngx:NgxUiLoaderConfig=
+{
+  "bgsColor": "red",
+  "bgsOpacity": 0.5,
+  "bgsPosition": "bottom-right",
+  "bgsSize": 60,
+  "bgsType": "three-strings",
+  "blur": 5,
+  "delay": 0,
+  "fastFadeOut": true,
+  "fgsColor": "red",
+  "fgsPosition": "center-center",
+  "fgsSize": 60,
+  "fgsType": "three-strings",
+  "gap": 24,
+  "logoPosition": "center-center",
+  "logoSize": 120,
+  "logoUrl": "",
+  "masterLoaderId": "master",
+  "overlayBorderRadius": "0",
+  "overlayColor": "rgba(40, 40, 40, 0.8)",
+  "pbColor": "red",
+  "pbDirection": "ltr",
+  "pbThickness": 3,
+  "hasProgressBar": true,
+  "text": "",
+  "textColor": "#FFFFFF",
+  "textPosition": "center-center",
+  "maxTime": -1,
+  "minTime": 300
+}
+
 
 @NgModule({
   declarations: [
@@ -25,14 +60,20 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     ForgotpasswordComponent,
     ForgotmailComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxUiLoaderModule.forRoot(ngx),
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground:true
+    }),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
