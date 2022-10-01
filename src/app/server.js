@@ -186,7 +186,7 @@ app.get("/verifyUser", (req, res) => {
                     res.send(falseResult);
                     return;
                 }
-                res.send(verifiedResult);
+                res.send(verifiedResult,verifyResult);
                 return;
             })
         }
