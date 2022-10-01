@@ -186,12 +186,12 @@ app.get("/verifyUser", (req, res) => {
                     res.send(falseResult);
                     return;
                 }
-                let result = {verifiedResult,verifyResult}
+                let result = { verifiedResult, verifyResult }
                 res.send(result);
                 return;
             })
         }
-        else{
+        else {
             res.send(falseResult);
             return;
         }
@@ -201,9 +201,22 @@ app.get("/verifyUser", (req, res) => {
 
 // Login
 
-app.post("/login",(req, res)=>{
-    console.log("Login Successful",req.body);
-    let {email, password} = req.body
+app.post("/login", (req, res) => {
+    console.log("Login Successful", req.body);
+    let { email, password } = req.body;
+    let sql = "select email, password, isBlocked from signupUsers where email=?";
+    connection.query(sql, [sql], (err, loginResult) => {
+        if (err) {
+            console.error(err.stack);
+            res.send(falseResult);
+            return;
+        }
+        else if(loginResult.length > 0){
+            
+        }
+    })
+
+
 })
 
 
