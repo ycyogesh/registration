@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-verifed',
@@ -8,10 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VerifedComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute, private router : Router) { }
+  result : any
+  constructor(private route : ActivatedRoute, private router : Router, private appServeice : AppService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((result)=>{
+      this.result = result
+      this.result = this.result['token']
+      this.getUserDetails(this.result);
+    })
   }
+
+  getUserDetails(token : string){
+    this.appServeice.verfiyUser(token)
+  }
+
   login(){
     this.router.navigate(["login"]);
   }

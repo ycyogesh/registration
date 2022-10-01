@@ -29,10 +29,6 @@ const routes: Routes = [
     component : VerifedComponent
   },
   {
-    path : "verified",
-    component : VerifedComponent
-  },
-  {
     path : "login",
     component : LoginComponent
   },

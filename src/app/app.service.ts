@@ -18,5 +18,8 @@ export class AppService {
   getUserDetails(email : string){
     return this.httpClient.get(environment.appUrl+"getUserDetails?email="+email)
   }
+  verfiyUser(token : string){
+    return this.httpClient.get(environment.appUrl+"verifyUser?token="+token)
+  }
 
 }

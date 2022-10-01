@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
       if (this.result['status']) {
         console.log("Result Controller", result);
         alert("Check your Mail");
-        this.router.navigate(['activate', this.forms['email'].value])
+        this.router.navigate(['activate', this.forms['email'].value], this.forms['orgName'].value)
         return;
       }
       this.userSignup.reset();
