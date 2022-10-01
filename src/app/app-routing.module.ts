@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { verify } from 'jsonwebtoken';
 import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: "activate/:email",
     component: MailsentComponent
+  },
+  {
+    path : "activation/:token",
+    component : VerifedComponent
   },
   {
     path : "verified",
