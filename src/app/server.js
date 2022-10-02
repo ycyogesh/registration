@@ -106,7 +106,7 @@ app.post("/signUp", (req, res) => {
         }
         // console.log("selectResult",selectResult);
         else if (selectResult.length > 0) {
-            if (selectResult.isVerified == 0) {
+            if (selectResult[0]?.isVerified == 0) {
                 console.log("Please Verify Mail");
                 res.send(falseResult);
                 return;
@@ -202,46 +202,79 @@ app.get("/verifyUser", (req, res) => {
 // Login
 
 app.post("/login", (req, res) => {
-    console.log("Login Successful", req.body);
+    console.log("Login Api Successful", req.body);
     let { email, password } = req.body;
-    let sql = "select email, password, isBlocked from signupUsers where email=?";
-    connection.query(sql, [sql], (err, loginResult) => {
+    let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
+    connection.query(sql,[email], (err, loginResult) => {
         if (err) {
             console.error(err.stack);
             res.send(falseResult);
             return;
         }
-        else if (loginResult.length > 0 && loginResult[0].isBlocked == 0) {
-            if (loginResult[0].isVerified == 1) {
-                bcrypt.compare(password, loginResult[0].password, (err, compareResult) => {
+        else if (loginResult.length > 0) {
+            console.log("Login Result 1",loginResult);
+            let count = loginResult[0]?.loginCount;
+            if (count == 3 && loginResult[0]?.isBlocked == 1) {
+                if (loginResult[0]?.nowTime > 86400) {
+                    let sql = "update signupUsers set blockTime = null, isBlocked=?, loginCount=? where id=?";
+                    connection.query(sql, [0, 0, loginResult[0]?.id], (err, blockUpdate) => {
+                        if (err) {
+                            console.error(err.stack);
+                            res.send(falseResult);
+                            return;
+                        }
+                        console.log("BlockUpdate",blockUpdate);
+                        res.send(trueResult);
+                    })
+                }
+            }
+            console.log("verify before",loginResult);
+            if (loginResult[0]?.isVerified == 1) {
+                console.log("Verified");
+                bcrypt.compare(password, loginResult[0]?.password, (err, compareResult) => {
                     if (err) {
                         console.error(err.stack);
                         res.send(falseResult);
                         return;
                     }
-                    else if (compareResult) {
+                    else if (compareResult && loginResult[0]?.isBlocked == 0) {
+                        console.log("Login Successful");
                         let token = jwt.sign({ email: email + parseInt(Math.random() * 10) }, "yc@3");
-                        res.send(trueResult)
+                        res.send(trueResult);
                     }
                     else {
-                        let count = loginResult[0].loginCount
+                        console.log("Password Mismatched");
+                        let count = loginResult[0]?.loginCount
                         if (loginResult[0].loginCount < 2) {
                             let sql = "update signupUsers set loginCount = ? where id =?";
-                            connection.query(sql, [count + 1, loginResult[0].id], (err, countUpdate) => {
+                            connection.query(sql, [count + 1, loginResult[0]?.id], (err, countUpdate) => {
                                 if (err) {
                                     console.error(err.stack);
                                     res.send(falseResult);
                                     return;
                                 }
-                                
+                                res.send(trueResult);
+                                return;
                             })
                         }
+                        let sql = "update signupUsers set blockTime=unix_timestamp(now()), isBlocked=?, loginCount=? where id=?";
+                        connection.query(sql, [1, count + 1, loginResult[0]?.id], (err, blockUpdate) => {
+                            if (err) {
+                                console.error(err.stack);
+                                res.send(falseResult);
+                                return;
+                            }
+                            res.send(trueResult);
+                        })
                     }
                 })
+                return;
             }
+            res.send(falseResult);      // Not Verified
+
         }
         else {
-
+            res.send(falseResult);      // No Result or Blocked
         }
     })
 

@@ -15,7 +15,7 @@
 -- updatedOn datetime);
 -- alter table signupUsers add column isBlocked boolean default 0;
 -- alter table signupUsers add column loginCount int(11) default 0;
-
+-- alter table signupUsers add column blockTime varchar(255);
 
 -- create index id on signupUsers(id,email);
 -- desc signupUsers;
