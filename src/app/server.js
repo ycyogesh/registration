@@ -45,7 +45,7 @@ connection.connect(function (err) {
 
 function activationMail(email, htmlPage) {
     return new Promise((resolve, reject) => {
-        console.log("Activation Processing", token);
+        console.log("Activation Processing");
         var transporter = nodemailer.createTransport({
             host: process.env.HOST_EMAIL,
             port: 2525,
@@ -310,7 +310,6 @@ app.post("/forgotPassword", (req, res) => {
             })
         }
     })
-    res.send(trueResult);
 })
 
 
