@@ -20,5 +20,18 @@
 -- create index id on signupUsers(id,email);
 -- desc signupUsers;
 select * from signupUsers;
+select * from forgotPassword;
 --  drop table signupUsers;
+
+-- create table forgotPassword(id int(11) primary key not null auto_increment,
+-- email varchar(255),
+-- token varchar(255),
+-- isDeleted boolean default 0,
+-- createdBy int(11) default 1,
+-- updatedBy int(11),
+-- createdOn datetime default current_timestamp,
+-- updatedOn datetime
+-- );
+
+-- update signupUsers set isVerified=1,updatedOn=now() where id=36;
 

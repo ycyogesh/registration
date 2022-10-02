@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig} from 'ngx-ui-loader';
 
@@ -60,7 +60,7 @@ const ngx:NgxUiLoaderConfig=
     LoginComponent,
     ForgotpasswordComponent,
     ForgotmailComponent,
-    ResetpasswordComponent,
+    ResetpasswordComponent
  
   ],
   imports: [
@@ -69,6 +69,7 @@ const ngx:NgxUiLoaderConfig=
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     NgxUiLoaderModule.forRoot(ngx),
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true

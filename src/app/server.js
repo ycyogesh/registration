@@ -43,7 +43,7 @@ connection.connect(function (err) {
 
 // Activation Mail 
 
-function activationMail(email, token) {
+function activationMail(email, htmlPage) {
     return new Promise((resolve, reject) => {
         console.log("Activation Processing", token);
         var transporter = nodemailer.createTransport({
@@ -60,10 +60,7 @@ function activationMail(email, token) {
             to: email,
             subject: "Verify Your Account",
             text: "To verify your account",
-            html:
-                '<html><body><p>To verify your account</p><a href="http://localhost:4200/activation/' +
-                token +
-                '">Click Here</a></body></html>',
+            html: htmlPage,
             dsn: {
                 id: "ID",
                 return: "headers",
@@ -135,7 +132,10 @@ app.post("/signUp", (req, res) => {
                         return;
                     }
                     console.log("insertResult", insertResult);
-                    let resp = await activationMail(email, token);
+                    let htmlPage = '<html><body><p>To verify your account</p><a href="http://localhost:4200/activation/' +
+                        token +
+                        '">Click Here</a></body></html>'
+                    let resp = await activationMail(email, htmlPage);
                     if (resp) {
                         res.send(trueResult);
                         return;
@@ -144,8 +144,6 @@ app.post("/signUp", (req, res) => {
                 })
             })
         }
-
-        // res.send("Select Success")
     })
 })
 
@@ -205,14 +203,14 @@ app.post("/login", (req, res) => {
     console.log("Login Api Successful", req.body);
     let { email, password } = req.body;
     let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
-    connection.query(sql,[email], (err, loginResult) => {
+    connection.query(sql, [email], (err, loginResult) => {
         if (err) {
             console.error(err.stack);
             res.send(falseResult);
             return;
         }
         else if (loginResult.length > 0) {
-            console.log("Login Result 1",loginResult);
+            console.log("Login Result 1", loginResult);
             let count = loginResult[0]?.loginCount;
             if (count == 3 && loginResult[0]?.isBlocked == 1) {
                 if (loginResult[0]?.nowTime > 86400) {
@@ -223,12 +221,12 @@ app.post("/login", (req, res) => {
                             res.send(falseResult);
                             return;
                         }
-                        console.log("BlockUpdate",blockUpdate);
+                        console.log("BlockUpdate", blockUpdate);
                         res.send(trueResult);
                     })
                 }
             }
-            console.log("verify before",loginResult);
+            console.log("verify before", loginResult);
             if (loginResult[0]?.isVerified == 1) {
                 console.log("Verified");
                 bcrypt.compare(password, loginResult[0]?.password, (err, compareResult) => {
@@ -277,8 +275,42 @@ app.post("/login", (req, res) => {
             res.send(falseResult);      // No Result or Blocked
         }
     })
+})
 
 
+// Forgot Password
+
+app.post("/forgotPassword", (req, res) => {
+    let { email } = req.body
+    let sql = "select id,email from signupUsers where email=?";
+    connection.query(sql, [email], (err, forgotResult) => {
+        if (err) {
+            console.error(err.stack);
+            res.send(falseResult);
+            return;
+        }
+        else if (forgotResult.length == 1) {
+            let token = jwt.sign({ email: email + parseInt(Math.random() * 10) }, "yc@3");
+            let sql = "insert into forgotPassword(email,token) values(?,?)";
+            connection.query(sql, [email, token], async (err, insertResult) => {
+                if (err) {
+                    console.error(err.stack);
+                    res.send(falseResult);
+                    return;
+                }
+                let htmlPage = '<html><body><p>To verify your account</p><a href="http://localhost:4200/forgot-mail/' +
+                    token +
+                    '">Click Here</a></body></html>'
+                    let resp = await activationMail(email, htmlPage);
+                    if(resp){
+                        res.send(trueResult);
+                        return;
+                    }
+                    res.send(falseResult);
+            })
+        }
+    })
+    res.send(trueResult);
 })
 
 

@@ -24,5 +24,8 @@ export class AppService {
   login(login : any){
     return this.httpClient.post(environment.appUrl+"login",login)
   }
+  forgotUser(email : string){
+    return this.httpClient.post(environment.appUrl+"forgotPassword",{email:email});
+  }
 
 }
