@@ -13,9 +13,12 @@
 -- updatedBy int(11),
 -- createdOn datetime default current_timestamp,
 -- updatedOn datetime);
+-- alter table signupUsers add column isBlocked boolean default 0;
+-- alter table signupUsers add column loginCount int(11) default 0;
+
 
 -- create index id on signupUsers(id,email);
 -- desc signupUsers;
 select * from signupUsers;
- drop table signupUsers;
+--  drop table signupUsers;
 

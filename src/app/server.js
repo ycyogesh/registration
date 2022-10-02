@@ -211,8 +211,26 @@ app.post("/login", (req, res) => {
             res.send(falseResult);
             return;
         }
-        else if(loginResult.length > 0){
-            
+        else if (loginResult.length > 0 && loginResult[0].isBlocked == 0) {
+            if (loginResult[0].isVerified == 1) {
+                bcrypt.compare(password, loginResult[0].password, (err, compareResult) => {
+                    if (err) {
+                        console.error(err.stack);
+                        res.send(falseResult);
+                        return;
+                    }
+                    else if(compareResult){
+                        let token = jwt.sign({email : email + parseInt(Math.random()*10)},"yc@3");
+                        res.send(trueResult)
+                    }
+                    else{
+                        
+                    }
+                })
+            }
+        }
+        else {
+
         }
     })
 
