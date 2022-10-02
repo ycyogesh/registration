@@ -219,12 +219,23 @@ app.post("/login", (req, res) => {
                         res.send(falseResult);
                         return;
                     }
-                    else if(compareResult){
-                        let token = jwt.sign({email : email + parseInt(Math.random()*10)},"yc@3");
+                    else if (compareResult) {
+                        let token = jwt.sign({ email: email + parseInt(Math.random() * 10) }, "yc@3");
                         res.send(trueResult)
                     }
-                    else{
-                        
+                    else {
+                        let count = loginResult[0].loginCount
+                        if (loginResult[0].loginCount < 2) {
+                            let sql = "update signupUsers set loginCount = ? where id =?";
+                            connection.query(sql, [count + 1, loginResult[0].id], (err, countUpdate) => {
+                                if (err) {
+                                    console.error(err.stack);
+                                    res.send(falseResult);
+                                    return;
+                                }
+                                
+                            })
+                        }
                     }
                 })
             }
