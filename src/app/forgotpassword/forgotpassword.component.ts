@@ -23,7 +23,7 @@ export class ForgotpasswordComponent implements OnInit {
       this.data = data
       this.data = this.data['status']
       if(this.data){
-        this.router.navigate(['forgot-user']);
+        this.router.navigate(['forgot-mail']);
       }
     })
 
