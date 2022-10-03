@@ -29,9 +29,11 @@
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "ngx": "^2.4.0",
+    "ngx": "^2.3.0",
     "ngx-ui-loader": "^13.0.0",
     "nodemailer": "^6.8.0",
+    "primeicons": "^6.0.1",
+    "primeng": "^14.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

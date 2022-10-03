@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="header">
+            <p>EmployeeName</p>
+            <span class="powerIcon"><i class="pi pi-power-off"></i></span>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="menu">
+            <button pButton (click)="myAssets()">My Assets</button>
+            <button pButton (click)="previousIssues()">My Assets</button>
+            <button pButton (click)="raiseIssue()">My Assets</button>
+        </div>
+    </div>
+   
+    <div class="row">
+        <router-outlet></router-outlet>
+    </div>
+</div>

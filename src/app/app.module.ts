@@ -15,6 +15,10 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig} from 'ngx-ui-loader';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+
 
 
 const ngx:NgxUiLoaderConfig=
@@ -60,7 +64,8 @@ const ngx:NgxUiLoaderConfig=
     LoginComponent,
     ForgotpasswordComponent,
     ForgotmailComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    DashboardComponent
  
   ],
   imports: [
@@ -74,6 +79,8 @@ const ngx:NgxUiLoaderConfig=
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     }),
+    ButtonModule,
+    InputTextModule,
     
   ],
   providers: [],

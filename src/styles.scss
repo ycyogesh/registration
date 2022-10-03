@@ -2,3 +2,11 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+.pi-user:before {
+    content: "\e939";
+}
+.powerIcon{
+    font-size: 1.5rem;
+    color: gray;
+    margin-bottom: 0.5rem;
+}

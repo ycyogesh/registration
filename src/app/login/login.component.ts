@@ -11,6 +11,7 @@ import { AppService } from '../app.service';
 export class LoginComponent implements OnInit {
 
   userSignup : any
+  result : any
   constructor(private router : Router, private fb : FormBuilder, private appService : AppService) { }
 
   ngOnInit(): void {
@@ -26,7 +27,14 @@ export class LoginComponent implements OnInit {
   login(){    
     this.appService.login({email : this.forms['email'].value, password : this.forms['password'].value}).subscribe((result)=>{
       console.log("result------>",result);
-      alert("Clicked");
+      this.result = result
+      this.result = this.result['status']
+      if(this.result){
+        alert("Login Successful");
+        this.router.navigate(['dashboard'])
+        return;
+      }
+      alert("Something went wrong!");
       
     })
   }
