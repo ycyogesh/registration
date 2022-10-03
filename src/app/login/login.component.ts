@@ -30,8 +30,9 @@ export class LoginComponent implements OnInit {
       this.result = result
       this.result = this.result['status']
       if(this.result){
-        alert("Login Successful");
         this.router.navigate(['dashboard'])
+        // alert("Login Successful");
+
         return;
       }
       alert("Something went wrong!");

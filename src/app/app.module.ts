@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,9 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig} from 'ngx-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -81,9 +84,16 @@ const ngx:NgxUiLoaderConfig=
     }),
     ButtonModule,
     InputTextModule,
+    ConfirmPopupModule,
+    BrowserAnimationsModule
+    
+    
     
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ConfirmationService,MessageService],
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule { }

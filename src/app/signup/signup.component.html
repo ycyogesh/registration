@@ -34,8 +34,14 @@
                 <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.minlength">Length should be 10</div>
                 <div style="color: red;font-size : 12px" *ngIf="forms['mobileNo'].errors?.maxlength">Length should be 10</div>
             </ng-container>
+            <p-toast></p-toast>
 
-            <button type="button" [disabled]="userSignup.invalid" (click)="createAccount()">CREATE ACCOUNT</button><br>
+            <p-confirmPopup></p-confirmPopup>
+
+            <button type="button" pButton [disabled]="userSignup.invalid" (click)="createAccount()">CREATE ACCOUNT</button><br>
+          
+
+
 
 
             <p>Already Have an Account? &nbsp;<a href="http://localhost:4200/login">Login</a></p>

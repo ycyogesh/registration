@@ -3,14 +3,13 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
-const check = require("express-validator");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 require("dotenv").config();
 var { expressjwt: jwtverify } = require("express-jwt");
 const rateLimit = require("express-rate-limit");
-const { body } = require("express-validator");
+const { check, validationResult } = require('express-validator');
 const { async } = require("rxjs");
 
 const saltRounds = 10;
