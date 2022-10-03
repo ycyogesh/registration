@@ -10,7 +10,7 @@ require("dotenv").config();
 var { expressjwt: jwtverify } = require("express-jwt");
 const rateLimit = require("express-rate-limit");
 const { check, validationResult } = require('express-validator');
-const { async } = require("rxjs");
+const { async, isEmpty } = require("rxjs");
 
 const saltRounds = 10;
 var count;
@@ -198,7 +198,10 @@ app.get("/verifyUser", (req, res) => {
 
 // Login
 
-app.post("/login", (req, res) => {
+app.post("/login",
+[check('email').not().isEmpty().withMessage("Email is Required"),
+check('password').not().isEmpty().withMessage("Password is Required").isLength({min : 8}).withMessage("Password shoul be 8")],
+(req, res) => {
     console.log("Login Api Successful", req.body);
     let { email, password } = req.body;
     let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
