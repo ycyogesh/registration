@@ -1,0 +1,41 @@
+.container-fluid {
+    .row {
+        .header {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+
+            h6 {
+                color: dodgerblue;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+
+            span {
+                i {
+                    color: crimson;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 50px;
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            button {
+
+            }
+        }
+    }
+    .router {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        height: 70vh;
+        margin: 20px;
+    }
+}
