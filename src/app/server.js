@@ -202,6 +202,10 @@ app.post("/login",
 [check('email').not().isEmpty().withMessage("Email is Required"),
 check('password').not().isEmpty().withMessage("Password is Required").isLength({min : 8}).withMessage("Password shoul be 8")],
 (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
     console.log("Login Api Successful", req.body);
     let { email, password } = req.body;
     let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
