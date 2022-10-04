@@ -7,6 +7,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { LoginComponent } from './login/login.component';
 import { MailsentComponent } from './mailsent/mailsent.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { RaiseissueComponent } from './raiseissue/raiseissue.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { SignupComponent } from './signup/signup.component';
 import { VerifedComponent } from './verifed/verifed.component';
@@ -35,7 +36,13 @@ const routes: Routes = [
   },
   {
     path : "dashboard",
-    component : DashboardComponent
+    component : DashboardComponent,
+    children : [
+      {
+        path : "raise-issue",
+        component : RaiseissueComponent
+      }
+    ]
   },
   {
     path : "forgot-password",

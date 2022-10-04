@@ -1,0 +1,28 @@
+<div class="mainarea">
+    <div class="headers">
+        <h3>
+            Raise a Complaint
+        </h3>
+    </div>
+    <div class="forms" [formGroup]="issue">
+        <p-dropdown [options]="issues" formControlName="issue" optionValue="issueId" optionLabel="issueName"></p-dropdown>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <label for="issues">Issue Type</label>
+<select name="issues" id="issues">
+    <option value="1">Display Fault</option>
+    <option value="2">Battery Fault</option>
+    <option value="3">Keyboard Fault</option>
+    <option value="4">Charger Fault</option>
+    <option value="5">Hang Issues</option>
+    <option value="6">Others</option>
+</select> -->

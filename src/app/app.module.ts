@@ -21,6 +21,10 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RaiseissueComponent } from './raiseissue/raiseissue.component';
+import {DropdownModule} from 'primeng/dropdown';
+
+
 
 
 
@@ -68,7 +72,8 @@ const ngx:NgxUiLoaderConfig=
     ForgotpasswordComponent,
     ForgotmailComponent,
     ResetpasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    RaiseissueComponent
  
   ],
   imports: [
@@ -85,7 +90,8 @@ const ngx:NgxUiLoaderConfig=
     ButtonModule,
     InputTextModule,
     ConfirmPopupModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DropdownModule
     
     
     

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {MenuItem, PrimeIcons} from 'primeng/api';
 
 
@@ -9,7 +10,7 @@ import {MenuItem, PrimeIcons} from 'primeng/api';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private aRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   }
   raiseIssue(){
-
+    this.router.navigate(['raise-issue'],{relativeTo : this.aRoute})
   }
 
 }
