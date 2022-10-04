@@ -41,6 +41,14 @@ const routes: Routes = [
       {
         path : "raise-issue",
         component : RaiseissueComponent
+      },
+      {
+        path : "previous-issue",
+        component : RaiseissueComponent
+      },
+      {
+        path : "my-assets",
+        component : RaiseissueComponent
       }
     ]
   },

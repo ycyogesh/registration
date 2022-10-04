@@ -16,9 +16,11 @@ export class DashboardComponent implements OnInit {
   }
 
   myAssets(){
+    this.router.navigate(['my-assets'],{relativeTo : this.aRoute})
 
   }
   previousIssues(){
+    this.router.navigate(['previous-issue'],{relativeTo : this.aRoute})
 
   }
   raiseIssue(){

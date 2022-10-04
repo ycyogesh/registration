@@ -23,6 +23,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RaiseissueComponent } from './raiseissue/raiseissue.component';
 import {DropdownModule} from 'primeng/dropdown';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 
@@ -91,7 +92,8 @@ const ngx:NgxUiLoaderConfig=
     InputTextModule,
     ConfirmPopupModule,
     BrowserAnimationsModule,
-    DropdownModule
+    DropdownModule,
+    InputTextareaModule
     
     
     

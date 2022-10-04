@@ -5,8 +5,11 @@
         </h3>
     </div>
     <div class="forms" [formGroup]="issue">
-        <p-dropdown [options]="issues" formControlName="issue" optionValue="issueId" optionLabel="issueName"></p-dropdown>
+        <p-dropdown  [options]="issues" formControlName="issueId" optionValue="issueId" optionLabel="issueName"></p-dropdown>
+        <p-dropdown  [options]="severity" formControlName="severity" optionValue="id" optionLabel="level"></p-dropdown>
+        <textarea [rows]="5" [cols]="30" formControlName="description" pInputTextarea [autoResize]="true"></textarea>
     </div>
+    <button pButton (click)="addIssue()">Submit</button>
 </div>
 
 
