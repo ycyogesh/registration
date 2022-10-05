@@ -199,59 +199,71 @@ app.get("/verifyUser", (req, res) => {
 // Login
 
 app.post("/login",
-[check('email').not().isEmpty().withMessage("Email is Required"),
-check('password').not().isEmpty().withMessage("Password is Required").isLength({min : 8}).withMessage("Password shoul be 8")],
-(req, res) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() })
-    }
-    console.log("Login Api Successful", req.body);
-    let { email, password } = req.body;
-    let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
-    connection.query(sql, [email], (err, loginResult) => {
-        if (err) {
-            console.error(err.stack);
-            res.send(falseResult);
-            return;
+    [check('email').not().isEmpty().withMessage("Email is Required"),
+    check('password').not().isEmpty().withMessage("Password is Required").isLength({ min: 8 }).withMessage("Password shoul be 8")],
+    (req, res) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() })
         }
-        else if (loginResult.length > 0) {
-            console.log("Login Result 1", loginResult);
-            let count = loginResult[0]?.loginCount;
-            if (count == 3 && loginResult[0]?.isBlocked == 1) {
-                if (loginResult[0]?.nowTime > 86400) {
-                    let sql = "update signupUsers set blockTime = null, isBlocked=?, loginCount=? where id=?";
-                    connection.query(sql, [0, 0, loginResult[0]?.id], (err, blockUpdate) => {
+        console.log("Login Api Successful", req.body);
+        let { email, password } = req.body;
+        let sql = "select email, password, isBlocked,isVerified,isDeleted,loginCount,unix_timestamp(now()) - blockTime as nowTime from signupUsers where email=?";
+        connection.query(sql, [email], (err, loginResult) => {
+            if (err) {
+                console.error(err.stack);
+                res.send(falseResult);
+                return;
+            }
+            else if (loginResult.length > 0) {
+                console.log("Login Result 1", loginResult);
+                let count = loginResult[0]?.loginCount;
+                if (count == 3 && loginResult[0]?.isBlocked == 1) {
+                    if (loginResult[0]?.nowTime > 86400) {
+                        let sql = "update signupUsers set blockTime = null, isBlocked=?, loginCount=? where id=?";
+                        connection.query(sql, [0, 0, loginResult[0]?.id], (err, blockUpdate) => {
+                            if (err) {
+                                console.error(err.stack);
+                                res.send(falseResult);
+                                return;
+                            }
+                            console.log("BlockUpdate", blockUpdate);
+                            res.send(trueResult);
+                        })
+                    }
+                }
+                console.log("verify before", loginResult);
+                if (loginResult[0]?.isVerified == 1) {
+                    console.log("Verified");
+                    bcrypt.compare(password, loginResult[0]?.password, (err, compareResult) => {
                         if (err) {
                             console.error(err.stack);
                             res.send(falseResult);
                             return;
                         }
-                        console.log("BlockUpdate", blockUpdate);
-                        res.send(trueResult);
-                    })
-                }
-            }
-            console.log("verify before", loginResult);
-            if (loginResult[0]?.isVerified == 1) {
-                console.log("Verified");
-                bcrypt.compare(password, loginResult[0]?.password, (err, compareResult) => {
-                    if (err) {
-                        console.error(err.stack);
-                        res.send(falseResult);
-                        return;
-                    }
-                    else if (compareResult && loginResult[0]?.isBlocked == 0) {
-                        console.log("Login Successful");
-                        let token = jwt.sign({ email: email + parseInt(Math.random() * 10) }, "yc@3");
-                        res.send(trueResult);
-                    }
-                    else {
-                        console.log("Password Mismatched");
-                        let count = loginResult[0]?.loginCount
-                        if (loginResult[0].loginCount < 2) {
-                            let sql = "update signupUsers set loginCount = ? where id =?";
-                            connection.query(sql, [count + 1, loginResult[0]?.id], (err, countUpdate) => {
+                        else if (compareResult && loginResult[0]?.isBlocked == 0) {
+                            console.log("Login Successful");
+                            let token = jwt.sign({ email: email + parseInt(Math.random() * 10) }, "yc@3");
+                            res.send(trueResult);
+                        }
+                        else {
+                            console.log("Password Mismatched");
+                            let count = loginResult[0]?.loginCount
+                            if (loginResult[0].loginCount < 2) {
+                                let sql = "update signupUsers set loginCount = ? where id =?";
+                                connection.query(sql, [count + 1, loginResult[0]?.id], (err, countUpdate) => {
+                                    if (err) {
+                                        console.error(err.stack);
+                                        res.send(falseResult);
+                                        return;
+                                    }
+                                    res.send(falseResult);
+                                    return;
+                                })
+                                return;
+                            }
+                            let sql = "update signupUsers set blockTime=unix_timestamp(now()), isBlocked=?, loginCount=? where id=?";
+                            connection.query(sql, [1, count + 1, loginResult[0]?.id], (err, blockUpdate) => {
                                 if (err) {
                                     console.error(err.stack);
                                     res.send(falseResult);
@@ -260,28 +272,20 @@ check('password').not().isEmpty().withMessage("Password is Required").isLength({
                                 res.send(trueResult);
                                 return;
                             })
+                            return
                         }
-                        let sql = "update signupUsers set blockTime=unix_timestamp(now()), isBlocked=?, loginCount=? where id=?";
-                        connection.query(sql, [1, count + 1, loginResult[0]?.id], (err, blockUpdate) => {
-                            if (err) {
-                                console.error(err.stack);
-                                res.send(falseResult);
-                                return;
-                            }
-                            res.send(trueResult);
-                        })
-                    }
-                })
-                return;
-            }
-            res.send(falseResult);      // Not Verified
+                        return;
+                    })
+                    return;
+                }
+                res.send(falseResult);      // Not Verified
 
-        }
-        else {
-            res.send(falseResult);      // No Result or Blocked
-        }
+            }
+            else {
+                res.send(falseResult);      // No Result or Blocked
+            }
+        })
     })
-})
 
 
 // Forgot Password
@@ -307,12 +311,12 @@ app.post("/forgotPassword", (req, res) => {
                 let htmlPage = '<html><body><p>To verify your account</p><a href="http://localhost:4200/reset-password/' +
                     token +
                     '">Click Here</a></body></html>'
-                    let resp = await activationMail(email, htmlPage);
-                    if(resp){
-                        res.send(trueResult);
-                        return;
-                    }
-                    res.send(falseResult);
+                let resp = await activationMail(email, htmlPage);
+                if (resp) {
+                    res.send(trueResult);
+                    return;
+                }
+                res.send(falseResult);
             })
         }
     })
@@ -321,8 +325,47 @@ app.post("/forgotPassword", (req, res) => {
 
 // Reset Password
 
-app.put("/resetPassword", (req, res)=>{
-    
+app.put("/resetPassword", (req, res) => {
+    let { token, password } = req.body
+    console.log("Entered-------->", token, password);
+    let sql = "select id,email,token from forgotPassword where token=?";
+    connection.query(sql, [token], (err, verifyResult) => {
+        if (err) {
+            console.error(err.stack);
+            res.send(falseResult);
+            return;
+        }
+        else if (verifyResult.length > 0) {
+            console.log("------Entered Matched--------");
+            bcrypt.hash(password, 10, (err, hash) => {
+                if (err) {
+                    console.error(err.stack);
+                    res.send(falseResult);
+                    return;
+                }
+                let sql = "update signupUsers set password=? where email=?";
+                connection.query(sql, [hash, verifyResult[0]?.email], (err, updateResult) => {
+                    if (err) {
+                        console.error(err.stack);
+                        res.send(falseResult);
+                        return;
+                    }
+                    let sql = "update forgotPassword set token=null where id=?";
+                    connection.query(sql, [verifyResult[0]?.id], (err, updateResult) => {
+                        if (err) {
+                            console.error(err.stack);
+                            res.send(falseResult);
+                            return;
+                        }
+                        console.log(updateResult);
+                    })
+                    console.log(updateResult);
+                    res.send(trueResult);
+                })
+            })
+
+        }
+    })
 })
 
 
