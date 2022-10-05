@@ -63,7 +63,7 @@ const routes: Routes = [
     component : ForgotmailComponent
   },
   {
-    path : "reset-password",
+    path : "reset-password/:token",
     component : ResetpasswordComponent
   },
   {

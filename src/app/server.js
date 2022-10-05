@@ -304,7 +304,7 @@ app.post("/forgotPassword", (req, res) => {
                     res.send(falseResult);
                     return;
                 }
-                let htmlPage = '<html><body><p>To verify your account</p><a href="http://localhost:4200/forgot-mail/' +
+                let htmlPage = '<html><body><p>To verify your account</p><a href="http://localhost:4200/reset-password/' +
                     token +
                     '">Click Here</a></body></html>'
                     let resp = await activationMail(email, htmlPage);
@@ -318,6 +318,12 @@ app.post("/forgotPassword", (req, res) => {
     })
 })
 
+
+// Reset Password
+
+app.put("/resetPassword", (req, res)=>{
+    
+})
 
 
 app.listen(3000, () => {

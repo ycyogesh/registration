@@ -27,5 +27,8 @@ export class AppService {
   forgotUser(email : string){
     return this.httpClient.post(environment.appUrl+"forgotPassword",{email:email});
   }
+  resetPassword(password : any){
+    return this.httpClient.put(environment.appUrl+"resetPassword",password)
+  }
 
 }
