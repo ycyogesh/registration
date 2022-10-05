@@ -95,9 +95,6 @@ const ngx: NgxUiLoaderConfig =
     BrowserAnimationsModule,
     DropdownModule,
     InputTextareaModule
-
-
-
   ],
   providers: [ConfirmationService,
     MessageService,
