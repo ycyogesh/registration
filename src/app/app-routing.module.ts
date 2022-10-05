@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { verify } from 'jsonwebtoken';
+import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path : "signup",
-    component : SignupComponent
+    component : SignupComponent,
   },
   {
     path: "activate/:email",
@@ -50,7 +51,8 @@ const routes: Routes = [
         path : "my-assets",
         component : RaiseissueComponent
       }
-    ]
+    ],
+    canActivate:[AuthGuard]
   },
   {
     path : "forgot-password",

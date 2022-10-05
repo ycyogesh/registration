@@ -13,23 +13,24 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { ForgotmailComponent } from './forgotmail/forgotmail.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig} from 'ngx-ui-loader';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderConfig } from 'ngx-ui-loader';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
-import {ConfirmPopupModule} from 'primeng/confirmpopup';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RaiseissueComponent } from './raiseissue/raiseissue.component';
-import {DropdownModule} from 'primeng/dropdown';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InterceptorInterceptor } from './interceptor.interceptor';
 
 
 
 
 
-const ngx:NgxUiLoaderConfig=
+const ngx: NgxUiLoaderConfig =
 {
   "bgsColor": "red",
   "bgsOpacity": 0.5,
@@ -75,7 +76,7 @@ const ngx:NgxUiLoaderConfig=
     ResetpasswordComponent,
     DashboardComponent,
     RaiseissueComponent
- 
+
   ],
   imports: [
     BrowserModule,
@@ -86,7 +87,7 @@ const ngx:NgxUiLoaderConfig=
     FormsModule,
     NgxUiLoaderModule.forRoot(ngx),
     NgxUiLoaderHttpModule.forRoot({
-      showForeground:true
+      showForeground: true
     }),
     ButtonModule,
     InputTextModule,
@@ -94,11 +95,13 @@ const ngx:NgxUiLoaderConfig=
     BrowserAnimationsModule,
     DropdownModule,
     InputTextareaModule
-    
-    
-    
+
+
+
   ],
-  providers: [ConfirmationService,MessageService],
+  providers: [ConfirmationService,
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorInterceptor, multi: true }],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
