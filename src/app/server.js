@@ -11,6 +11,9 @@ var { expressjwt: jwtverify } = require("express-jwt");
 const rateLimit = require("express-rate-limit");
 const { check, validationResult } = require('express-validator');
 const { async, isEmpty } = require("rxjs");
+var FCM = require('fcm-node');
+var serverKey = 'YOURSERVERKEYHERE';
+var fcm = new FCM(serverKey);
 
 const saltRounds = 10;
 var count;
